@@ -6,10 +6,13 @@ import TwitterProvider from "next-auth/providers/twitter";
 import Auth0Provider from "next-auth/providers/auth0";
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "../../../lib/prismadb";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   // https://next-auth.js.org/configuration/providers/oauth
   providers: [
     /* EmailProvider({
@@ -51,6 +54,7 @@ export const authOptions: NextAuthOptions = {
     //   issuer: process.env.AUTH0_ISSUER,
     // }),
   ],
+  session: { strategy: "jwt" },
   //   theme: {
   //     colorScheme: "light",
   //   },
